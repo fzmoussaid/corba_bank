@@ -1,0 +1,36 @@
+module bankApp{
+
+  typedef sequence<string> StringSeq;
+  struct AccountDetails{
+    string name;
+    StringSeq address;
+    long account_number;
+    double current_balance;
+  };
+  exception insufficientFunds { };
+
+  interface Account{
+    void deposit(in unsigned long amount);
+    void withdraw(in unsigned long amount) raises(insufficientFunds);
+    readonly attribute AccountDetails details;
+    long balance();
+    void initTransfer(in any to, in unsigned long ammount);
+  };
+
+  interface Bank{
+    Account create();
+    void destroy(in Account a);
+    void connect();
+  };
+  struct Transfer{
+    Account to;
+    Account from;
+    unsigned long sum;
+  };
+  interface Interbank{
+    oneway void transfer(in Transfer transaction);
+    void put(in Transfer transaction);
+    any get(in any reference);
+  };
+
+};

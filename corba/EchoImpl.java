@@ -1,0 +1,15 @@
+import org.omg.CORBA.*;
+import org.omg.PortableServer.*;
+import org.omg.PortableServer.POA;
+import java.util.Properties;
+import org.omg.CosNaming.*;
+import org.omg.CosNaming.NamingContextPackage.*;
+
+class EchoImpl extends EchoPOA
+{
+  public String echoString(String msg) 
+  {
+    System.out.println("msg: " + msg);
+    return msg;
+  }
+}
